@@ -19,25 +19,25 @@ public class ProviderDirectory
 	public int addPro(Person temp)
 	{
 		directory.put(temp.getName(), temp);
-		directory2.put(temp.getService(), temp);
+		directory2.put(temp.getServiceNum(), temp);
 		directory3.put(temp.getNum(), temp);
 					
 		if(directory.containsKey(temp.getName()))
-			if(directory2.containsKey(temp.getService()))
+			if(directory2.containsKey(temp.getServiceNum()))
 				if(directory3.containsKey(temp.getNum()))
 					return 1;
 	
 		return 0;
 	}
 	
-	//remove provider from maps
-	public boolean removePro(int key)
+	//remove provider from maps based on name
+	public boolean removePro(String key)
 	{
-		if(directory.remove(key) != null)
-			if(directory2.remove(key) != null)
-				if(directory3.remove(key) != null)
+		if(directory.containsKey(key))
+		{	
+			directory3.remove(directory2.remove(directory.remove(key).getServiceNum()).getNum());
 					return true;
-		
+		}
 		return false;
 	}
 	
@@ -133,6 +133,8 @@ public class ProviderDirectory
 			System.out.println("Number Not found");
 			
 		map.searchByServiceNum(1234);
+		map.searchByServiceNum(1);
+		map.removePro("Tay");
 		map.searchByServiceNum(1);
 		map.searchByServiceNum(2);
 		map.saveOutForEmail();
