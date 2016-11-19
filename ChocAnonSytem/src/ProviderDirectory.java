@@ -69,7 +69,7 @@ public class ProviderDirectory
 		return 0;
 	}
 	
-	public void saveOutToEmail()
+	public void saveOutForEmail()
 	{
 		PrintWriter writer = null;
 		
@@ -126,7 +126,7 @@ public class ProviderDirectory
 
 
 		//System.out.println(directory.size());
-		map.displayAll();
+		//map.displayAll();
 		if(map.searchByProNum(123) == 1)
 			System.out.println("Logged in.\n");
 		else
@@ -135,7 +135,7 @@ public class ProviderDirectory
 		map.searchByServiceNum(1234);
 		map.searchByServiceNum(1);
 		map.searchByServiceNum(2);
-		map.saveOutToEmail();
+		map.saveOutForEmail();
 		map.saveOutForSystem();
 	}
 }
