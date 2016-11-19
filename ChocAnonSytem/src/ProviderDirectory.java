@@ -28,7 +28,10 @@ public class ProviderDirectory
 		for(Entry<String, Person> entry : directory.entrySet())
 		{
 			if(entry.getValue().getNum() == found)
+			{
+				entry.getValue().display();
 				return 1;
+			}
 		}
 		return 0;
 	}
@@ -36,7 +39,7 @@ public class ProviderDirectory
 	public static void main(String[] args)
 	{
 		ProviderDirectory map = new ProviderDirectory();
-		Service temp1 = new Service(1234);
+		Service temp1 = new Service(1234, 300, "PHY");
 		Person	temp = new Person("Jorden", 56, temp1);
 		
 		map.addPro(temp);
@@ -46,7 +49,8 @@ public class ProviderDirectory
 		map.addPro(temp);
 
 
-		System.out.println(directory.size());
-		map.display();
+		//System.out.println(directory.size());
+		//map.display();
+		map.searchByProNum(123);
 	}
 }

@@ -17,6 +17,7 @@ public class Service {
 		this.fee = passedFee;
 		this.serviceName = passedServiceName;
 	}
+	
 	public int getServiceCode() {
 		return serviceCode;
 	}
@@ -41,5 +42,8 @@ public class Service {
 		this.serviceName = serviceName;
 	}
 
-
+	public void display()
+	{
+		System.out.println("Service name: " + serviceName + "\nFee: " + fee + "\nService Code: " + serviceCode);
+	}
 }
