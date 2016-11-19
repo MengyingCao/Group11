@@ -1,52 +1,112 @@
 import java.util.*;
 import java.util.Map.Entry;
+import java.io.*;
 
 public class ProviderDirectory
 {
-	private static TreeMap<String, Person> directory;
+	private static TreeMap<String, Person> directory;		//tree based on provider name(might change to number)
+	private static TreeMap<Integer, Person> directory2;		//tree based on service number
+	private static TreeMap<Integer, Person>	directory3;		//tree based on provider number
 	
 	public ProviderDirectory()
 	{
 		directory = new TreeMap<String, Person>();
+		directory2 = new TreeMap<Integer, Person>();
+		directory3 = new TreeMap<Integer, Person>();
 	}
 	
-	public void addPro(Person temp)
+	//adds new provider to maps
+	public int addPro(Person temp)
 	{
-		directory.put(temp.getName(), temp);	
+		directory.put(temp.getName(), temp);
+		directory2.put(temp.getService(), temp);
+		directory3.put(temp.getNum(), temp);
+					
+		if(directory.containsKey(temp.getName()))
+			if(directory2.containsKey(temp.getService()))
+				if(directory3.containsKey(temp.getNum()))
+					return 1;
+	
+		return 0;
 	}
 	
+	//remove provider from maps
+	public boolean removePro(int key)
+	{
+		if(directory.remove(key) != null)
+			if(directory2.remove(key) != null)
+				if(directory3.remove(key) != null)
+					return true;
+		
+		return false;
+	}
+	
+	//display list of provider in alphabetical order	
 	public void displayAll()
-	{
+	{	
 		for(Entry<String, Person> entry : directory.entrySet())
-		{
 			entry.getValue().display();
-		}
 	}
 	
+	//search by provider number
 	public int searchByProNum(int found)
 	{
-		for(Entry<String, Person> entry : directory.entrySet())
+		//check that the key exist if so respond positively
+		if(directory3.containsKey(found))
+			return 1;
+		
+		return 0;
+	}
+	
+	//searches map for service number
+	public int searchByServiceNum(int found)
+	{
+		if(directory2.containsKey(found))
 		{
-			if(entry.getValue().getNum() == found)
-			{
-				entry.getValue().display();
-				return 1;
-			}
+			directory2.get(found).display();
+			return 1;
 		}
 		return 0;
 	}
 	
-	public int searchByServiceNum(int found)
+	public void saveOutToEmail()
 	{
+		PrintWriter writer = null;
+		
+		try {
+			writer = new PrintWriter("Directory Email.txt");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		for(Entry<String, Person> entry : directory.entrySet())
 		{
-			if(entry.getValue().getService() == found)
-			{
-				entry.getValue().displayServ();
-				return 1;
-			}
+			entry.getValue().saveOutForEmail(writer);
+			writer.write("\n");
 		}
-		return 0;
+
+		writer.close();
+	}
+	
+	public void saveOutForSystem()
+	{
+		PrintWriter writer = null;
+		
+		try {
+			writer = new PrintWriter("Provider Directory.txt");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for(Entry<String, Person> entry : directory.entrySet())
+		{
+			entry.getValue().saveOutForSystem(writer);
+			writer.write("\n");
+		}
+
+		writer.close();
 	}
 	
 	public static void main(String[] args)
@@ -66,10 +126,16 @@ public class ProviderDirectory
 
 
 		//System.out.println(directory.size());
-		//map.display();
-		//map.searchByProNum(123);
+		map.displayAll();
+		if(map.searchByProNum(123) == 1)
+			System.out.println("Logged in.\n");
+		else
+			System.out.println("Number Not found");
+			
 		map.searchByServiceNum(1234);
 		map.searchByServiceNum(1);
 		map.searchByServiceNum(2);
+		map.saveOutToEmail();
+		map.saveOutForSystem();
 	}
 }

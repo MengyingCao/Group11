@@ -1,3 +1,4 @@
+import java.io.PrintWriter;
 
 public class Service {
 
@@ -45,5 +46,15 @@ public class Service {
 	public void display()
 	{
 		System.out.println("Service name: " + serviceName + "\nFee: " + fee + "\nService Code: " + serviceCode);
+	}
+	
+	public void saveOutForEmail(PrintWriter out)
+	{
+		out.write("Service: " + serviceName + "\n" + "Fee: " + fee + "\n" + "Service Code: " + serviceCode + "\n");
+	}
+	
+	public void saveOutForSystem(PrintWriter out)
+	{
+		out.write(serviceName + ";" + fee + ";" + serviceCode + ";");
 	}
 }
