@@ -29,18 +29,20 @@ protected static Scanner input = null;
 		String TempAddress = null;
 		String TempCity = null;
 		String TempState = null;
-		int TempZip = 0;
+		Integer TempZip = 0;
 		
 		System.out.print("Member Address: ");
 		TempAddress = input.nextLine();
+		SetAddress(TempAddress);
 		System.out.print("Member City: ");
 		TempCity = input.nextLine();
+		SetCity(TempCity);
 		System.out.print("Member State(E.G. NY): ");
 		TempState = input.nextLine();
+		SetState(TempState);
 		System.out.print("Member Zip: ");
 		TempZip = input.nextInt();
-		
-		super.setlocation(TempAddress, TempCity, TempState, TempZip); // This functions sets the location
+		SetZip(TempZip);
 		
 		return;
 	}
@@ -48,15 +50,15 @@ protected static Scanner input = null;
 	public void DisplayInformation(){
 		System.out.println();
 		System.out.println("MEMBER INFORMATION");
-		System.out.println("Name: " + NameGetter());
-		System.out.println("ID: " + IDGetter());
-		System.out.println("Address: " + AddressGetter());
-		System.out.println("City: " + CityGetter());
-		System.out.println("State: " + StateGetter());
+		System.out.println("Name: " + GetName());
+		System.out.println("ID: " + GetID());
+		System.out.println("Address:"); 
+		System.out.println(GetAddress());
+		System.out.println(GetCity() + ", " + GetState() + " " + GetZip());
 		return;
 	}
 // RetrievePerson Checks the ID for matching members
-	public boolean RetrievePerson(int IDEN_NUM){
+	public boolean RetrievePerson(Integer IDEN_NUM){
 		if(IDEN_NUM == IDGetter())
 			return true;
 		return false;
@@ -66,32 +68,56 @@ protected static Scanner input = null;
  * (non-Javadoc)
  * @see Person#IDGetter()
  */
-	public int IDGetter(){
+	public Integer GetID(){
 		return super.IDGetter();
 	}
-	
-	public int ZipGetter(){
+	public Integer GetZip(){
 		return super.ZipGetter();
 	}
-	
-	public String NameGetter(){
+	public String GetName(){
 		return super.NameGetter();
 	}
-	
-	public String AddressGetter(){
-		return super.AddressGetter();
-	}
-	
-	public String CityGetter(){
+	public String GetCity(){
 		return super.CityGetter();
 	}
-	
-	public String StateGetter(){
+	public String GetAddress(){
+		return super.AddressGetter();
+	}
+	public String GetState(){
 		return super.StateGetter();
 	}
 //-----------END OF GETTERS----------------\\
 	
-/* Used just for testing purposes	
+	public void SetAddress(String address){
+		super.setaddress(address);
+		return;
+	}
+	public void SetCity(String city){
+		super.setcity(city);
+		return;
+	}
+	
+	public void SetState(String state){
+		super.setstate(state);
+		return;
+	}
+	
+	public void SetName(String name){
+		super.setname(name);
+		return;
+	}
+	
+	public void SetID(Integer IDnumba){
+		super.setidnum(IDnumba);
+		return;
+	}
+	
+	public void SetZip(Integer Zippos){
+		super.setzip(Zippos);
+		return;
+	}
+	
+// Used just for testing purposes	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("HELLO");
@@ -100,19 +126,19 @@ protected static Scanner input = null;
 		Aperson.SetName();
 		Aperson.SetIDnum();
 		Aperson.SetLocation();
-		
+/*		
 		Person AnotherPerson;
 		AnotherPerson = new Providers();
 		AnotherPerson.SetName();
 		AnotherPerson.SetIDnum();
 		AnotherPerson.SetLocation();
-		
+*/		
 		Aperson.DisplayInformation();
-		AnotherPerson.DisplayInformation();
+//		AnotherPerson.DisplayInformation();
 		
 		Aperson = null;
-		AnotherPerson = null;
+		//AnotherPerson = null;
 		return;
 	}
-*/
+
 }

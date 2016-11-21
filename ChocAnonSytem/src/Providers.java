@@ -1,21 +1,13 @@
-import java.io.PrintWriter;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Providers extends Person{
 protected static Scanner input = null;
-
 // Constructor
 	public Providers(){
 		super();
 	}
-	
-	public Providers(Person person) {
-		// TODO Auto-generated constructor stub
-		super(person);
-	}
-
-	// set the name of the provider
+// set the name of the provider
 	public void SetName(){
 		System.out.print("Provider Name: ");
 		input = new Scanner(System.in);
@@ -61,57 +53,70 @@ protected static Scanner input = null;
 	public void DisplayInformation(){
 		System.out.println();
 		System.out.println("PROVIDER INFORMATION");
-		System.out.println("Name: " + NameGetter());
-		System.out.println("ID: " + IDGetter());
-		System.out.println("Address: " + AddressGetter());
-		System.out.println("City: " + CityGetter());
-		System.out.println("State: " + StateGetter());
+		System.out.println("Name: " + GetName());
+		System.out.println("ID: " + GetID());
+		System.out.println("Address: " + GetAddress());
+		System.out.println("City: " + GetCity());
+		System.out.println("State: " + GetState());
 		return;
 	}
 // RetrievePerson Checks the ID for matching members
-	public boolean RetrievePerson(int IDEN_NUM){
+	public boolean RetrievePerson(Integer IDEN_NUM){
 		if(IDEN_NUM == IDGetter())
 			return true;
 		return false;
+	}
+
+	public void SetAddress(String address){
+		super.setaddress(address);
+		return;
+	}
+	public void SetCity(String city){
+		super.setcity(city);
+		return;
+	}
+	
+	public void SetState(String state){
+		super.setstate(state);
+		return;
+	}
+	
+	public void SetName(String name){
+		super.setname(name);
+		return;
+	}
+	
+	public void SetID(Integer IDnumba){
+		super.setidnum(IDnumba);
+		return;
+	}
+	
+	public void SetZip(Integer Zippos){
+		super.setzip(Zippos);
+		return;
 	}
 /*
  * Below are the getters of the function
  * (non-Javadoc)
  * @see Person#IDGetter()
  */
-	public int IDGetter(){
+//-----------GETTERS-----------------------\\
+	public Integer GetID(){
 		return super.IDGetter();
 	}
-	
-	public int ZipGetter(){
+	public Integer GetZip(){
 		return super.ZipGetter();
 	}
-	
-	public String NameGetter(){
+	public String GetName(){
 		return super.NameGetter();
 	}
-	
-	public String AddressGetter(){
-		return super.AddressGetter();
-	}
-	
-	public String CityGetter(){
+	public String GetCity(){
 		return super.CityGetter();
 	}
-	
-	public String StateGetter(){
+	public String GetAddress(){
+		return super.AddressGetter();
+	}
+	public String GetState(){
 		return super.StateGetter();
 	}
-	
-	public void saveOutForEmail(PrintWriter out)
-	{
-		super.saveOutForEmail(out);
-	}
-	
-	public void saveOutForSystem(PrintWriter out)
-	{
-		super.saveOutForSystem(out);
-	}
-//-----------END OF GETTERS----------------\\
-
 }
