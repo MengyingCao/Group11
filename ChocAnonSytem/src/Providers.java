@@ -55,10 +55,9 @@ protected static Scanner input = null;
 		System.out.println("PROVIDER INFORMATION");
 		System.out.println("Name: " + GetName());
 		System.out.println("ID: " + GetID());
-		System.out.println("Address: " + GetAddress());
-		System.out.println("City: " + GetCity());
-		System.out.println("State: " + GetState());
-		return;
+		System.out.println("Address:"); 
+		System.out.println(GetAddress());
+		System.out.println(GetCity() + ", " + GetState() + " " + GetZip());
 	}
 // RetrievePerson Checks the ID for matching members
 	public boolean RetrievePerson(Integer IDEN_NUM){
