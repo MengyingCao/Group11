@@ -4,11 +4,18 @@ import java.util.Scanner;
 
 public class Providers extends Person{
 protected static Scanner input = null;
+
 // Constructor
 	public Providers(){
 		super();
 	}
-// set the name of the provider
+	
+	public Providers(Person person) {
+		// TODO Auto-generated constructor stub
+		super(person);
+	}
+
+	// set the name of the provider
 	public void SetName(){
 		System.out.print("Provider Name: ");
 		input = new Scanner(System.in);
