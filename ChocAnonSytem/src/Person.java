@@ -1,3 +1,4 @@
+import java.io.PrintWriter;
 import java.util.*;
 // this is the abstract base class
 public abstract class Person {
@@ -69,6 +70,17 @@ protected static Scanner input = null;
 	public String StateGetter(){
 		return State;
 	}
+	
+	public void saveOutForEmail(PrintWriter out)
+	{
+		out.write("Name: " + name + "\nAddress: " + Address + " " + City + " " + State + ", " + Zip);
+	}
+	
+	public void saveOutForSystem(PrintWriter out)
+	{
+		out.write(name + ';' + IDnum + ';' + Address + ';' + City + ';' + State + ';' + Zip);
+	}
+	
 /* Below are the abstract functions, the derived
  * classes can call upon to retrieve information
  * by these functions

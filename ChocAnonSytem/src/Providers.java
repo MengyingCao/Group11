@@ -1,3 +1,4 @@
+import java.io.PrintWriter;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -93,6 +94,16 @@ protected static Scanner input = null;
 	
 	public String StateGetter(){
 		return super.StateGetter();
+	}
+	
+	public void saveOutForEmail(PrintWriter out)
+	{
+		super.saveOutForEmail(out);
+	}
+	
+	public void saveOutForSystem(PrintWriter out)
+	{
+		super.saveOutForSystem(out);
 	}
 //-----------END OF GETTERS----------------\\
 
