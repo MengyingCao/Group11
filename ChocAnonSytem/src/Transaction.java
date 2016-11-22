@@ -22,8 +22,9 @@ public class Transaction {
 	public Boolean isWithinPastWeek()
 	{
 		long week = 7;
+		LocalDate todaysDate = LocalDate.now();
 		//if the transaction date is before a week ago
-		if (transactionDate.isBefore(LocalDate.now().minusDays(week)))
+		if (transactionDate.isBefore(todaysDate.minusDays(week)))
 			return false;
 		else
 			return true;
