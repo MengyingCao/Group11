@@ -6,17 +6,26 @@ public class Transaction {
 	private LocalDateTime dateTimeRecieved;
 	private int providerNumber;
 	private int memberNumber;
-	int serviceCode;
-	String comment;
+	private int serviceCode;
+	private String comment;
 	
 	public Transaction(){
 		/* set all members to their zero equivalent values */
 		transactionDate = LocalDate.MIN;
 		dateTimeRecieved = LocalDateTime.MIN;
-		providerNumber = -1;
-		memberNumber = -1;
-		serviceCode = -1;
+		providerNumber = 0;
+		memberNumber = 0;
+		serviceCode = 0;
 		comment = "";
+	}
+	
+	public Transaction(Transaction toCopy){
+		this.transactionDate = LocalDate.from(toCopy.getTransactionDate());
+		this.dateTimeRecieved = LocalDateTime.from(toCopy.getDateTimeRecieved());
+		this.providerNumber = toCopy.getProviderNumber();
+		this.memberNumber = toCopy.getMemberNumber();
+		this.serviceCode = toCopy.getServiceCode();
+		this.comment = toCopy.getComment();
 	}
 	
 	public Boolean isWithinPastWeek()
@@ -50,31 +59,31 @@ public class Transaction {
 		return providerNumber;
 	}
 
-	public void setProviderNumber(int providerNumber) {
-		this.providerNumber = providerNumber;
+	public void setProviderNumber(int number) {
+		this.providerNumber = number;
 	}
 
 	public int getMemberNumber() {
 		return memberNumber;
 	}
 
-	public void setMemberNumber(int memberNumber) {
-		this.memberNumber = memberNumber;
+	public void setMemberNumber(int number) {
+		this.memberNumber = number;
 	}
 
 	public int getServiceCode() {
 		return serviceCode;
 	}
 
-	public void setServiceCode(int serviceCode) {
-		this.serviceCode = serviceCode;
+	public void setServiceCode(int serviceNumber) {
+		this.serviceCode = serviceNumber;
 	}
 
 	public String getComment() {
 		return comment;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setComment(String commentString) {
+		return this.comment;
 	}
 }
