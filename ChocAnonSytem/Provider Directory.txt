@@ -1,2 +1,1 @@
-Butt;321;P;300.0;2;
-Jorden;56;PHY;300.0;1234;
+Jo;884848809;Address;City;State;123

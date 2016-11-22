@@ -94,7 +94,7 @@ protected static Scanner input = null;
 	
 	public void saveOutForEmail(PrintWriter out)
 	{
-		out.write("Name: " + name + "\nAddress:\n" + Address + '\n' + City + State +", " + Zip);
+		out.write("Name: " + name + "\nAddress:" + Address + '\n' + City + ' '+ State +", " + Zip);
 	}
 	
 	public void saveOutForSystem(PrintWriter out)

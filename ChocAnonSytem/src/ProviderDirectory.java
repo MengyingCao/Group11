@@ -148,7 +148,7 @@ public class ProviderDirectory
 		
 		temp.setname("Jo");
 		temp.SetIDnum();
-		temp.setlocation("AAAAA", "CCCC", "ZZZZZZ", 123);
+		temp.setlocation("Address", "City", "State", 123);
 		directory.addPro(temp);
 		
 		Person temp1 = null;
@@ -158,6 +158,8 @@ public class ProviderDirectory
 		if(temp1 != null)
 			temp1.DisplayInformation();
 		
+		directory.saveOutForEmail();
+		directory.saveOutForSystem();
 		
 		
 		
