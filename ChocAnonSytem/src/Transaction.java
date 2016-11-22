@@ -86,4 +86,5 @@ public class Transaction {
 	public void setComment(String commentString) {
 		this.comment = commentString;
 	}
+	
 }
