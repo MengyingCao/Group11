@@ -2,12 +2,12 @@ import java.util.*;
 import java.util.Map.Entry;
 import java.io.*;
 
-public class ProviderDirectory
+public class ProviderDB
 {
 	private static TreeMap<String, Person> directory;		//tree based on provider name
 	private static TreeMap<Integer, Person>	directory1;		//tree based on provider number
 	
-	public ProviderDirectory()
+	public ProviderDB()
 	{
 		directory = new TreeMap<String, Person>();
 		directory1 = new TreeMap<Integer, Person>();
@@ -144,7 +144,7 @@ public class ProviderDirectory
 	public static void main(String[] args)
 	{
 		Person temp = new Providers();
-		ProviderDirectory directory = new ProviderDirectory();
+		ProviderDB directory = new ProviderDB();
 		
 		temp.setname("Jo");
 		temp.SetIDnum();
