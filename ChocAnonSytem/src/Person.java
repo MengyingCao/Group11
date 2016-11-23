@@ -27,6 +27,16 @@ protected static Scanner input = null;
 		City = ToCopy.City;
 		State = ToCopy.State;
 	}
+	
+	public Person(String name, Integer id, String addr, String city, String state, Integer zip)
+	{
+		this.name = name;
+		this.IDnum = id;
+		this.Address = addr;
+		this.City = city;
+		this.State = state;
+		this.Zip = zip;
+	}
 // sets the name
 	public void setname(String Name){
 		name = Name;
@@ -100,6 +110,12 @@ protected static Scanner input = null;
 	public void saveOutForSystem(PrintWriter out)
 	{
 		out.write(name +';' + IDnum +';' + Address + ';' + City +';' + State + ';' + Zip);
+	}
+	
+	public String toString()
+	{
+		return name + ";" + IDnum + ";" + Address 
+				+ ";" + City + ";" + State + ";" + Zip + ";";
 	}
 	
 /* Below are the abstract functions, the derived

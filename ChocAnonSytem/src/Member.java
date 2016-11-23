@@ -7,6 +7,10 @@ protected static Scanner input = null;
 		super();
 	}
 	
+	public Member(String name, Integer id, String addr, String city, String state, Integer zip){
+		super(name,id,addr,city,state,zip);
+	}
+	
 	public void SetName(){
 		System.out.print("Member Name: ");
 		input = new Scanner(System.in);

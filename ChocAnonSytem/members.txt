@@ -1,0 +1,7 @@
+name;342391;123 fake;city;state;33333;
+fatima farjood;444444444;666 fake st;pueblo;co;97221;
+eric ericson;555555555;555 fake st;provo;ut;97220;
+dave davidson;666666666;444 fake st;boise;id;97219;
+carl crash;777777777;333 fake st;sacramento;ca;97218;
+betsy blue;888888888;222 fake st;vancouver;wa;97217;
+adam avery;999999999;111 fake st;portland;or;97216;
