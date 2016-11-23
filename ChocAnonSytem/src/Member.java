@@ -135,7 +135,7 @@ protected static Scanner input = null;
 */		
 		Aperson.DisplayInformation();
 //		AnotherPerson.DisplayInformation();
-		
+		Person justTesting;
 		Aperson = null;
 		//AnotherPerson = null;
 		return;
