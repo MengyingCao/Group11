@@ -19,6 +19,13 @@ public class Service {
 		this.serviceName = passedServiceName;
 	}
 	
+	public Service(Service copyTo) 
+	{
+		copyTo.serviceName = this.serviceName;
+		copyTo.serviceCode = this.serviceCode;
+		copyTo.fee = this.fee;
+		
+	}
 	public int getServiceCode() {
 		return serviceCode;
 	}

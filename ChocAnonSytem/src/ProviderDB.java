@@ -126,7 +126,7 @@ public class ProviderDB
 		PrintWriter writer = null;
 		
 		try {
-			writer = new PrintWriter("Provider Directory.txt");
+			writer = new PrintWriter("ProviderDB.txt");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
