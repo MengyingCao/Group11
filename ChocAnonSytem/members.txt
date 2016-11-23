@@ -1,4 +1,4 @@
-name;342391;123 fake;city;state;33333;
+
 fatima farjood;444444444;666 fake st;pueblo;co;97221;
 eric ericson;555555555;555 fake st;provo;ut;97220;
 dave davidson;666666666;444 fake st;boise;id;97219;
