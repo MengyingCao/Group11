@@ -87,4 +87,12 @@ public class Transaction {
 		this.comment = commentString;
 	}
 	
+	public void displayInformation() {
+		System.out.print("Date of Transaction:" + transactionDate + '\n');
+		System.out.print("Date/Time recieved:" + dateTimeRecieved+ '\n');
+		System.out.print("Member Number:" + memberNumber + '\n');
+		System.out.print("Provider Number:" + providerNumber + '\n');
+		System.out.print("Service Code:" + serviceCode + '\n');
+		System.out.print("Comment:" + comment + '\n');
+	}
 }
