@@ -140,6 +140,7 @@ public class TransactionDB {
 			catch(DateTimeParseException e){
 				memberTransactionDB.clear();
 				providerTransactionDB.clear();
+				reader.close();
 				return false;
 			}
 						
