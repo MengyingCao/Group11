@@ -6,12 +6,54 @@ public class ProviderDB
 {
 	private static TreeMap<String, Person> directory;		//tree based on provider name
 	private static TreeMap<Integer, Person>	directory1;		//tree based on provider number
-	
+	private static Scanner in = null;
+	 
 	public ProviderDB()
 	{
 		directory = new TreeMap<String, Person>();
 		directory1 = new TreeMap<Integer, Person>();
 	}
+	public ProviderDB(String fileName) throws FileNotFoundException
+	{
+		File inFile = new File(fileName);
+		try {
+			in = new Scanner(inFile);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			throw e;//.printStackTrace();
+		}
+		
+		in.useDelimiter(";");
+		directory = new TreeMap<String, Person>();
+		directory1 = new TreeMap<Integer, Person>();
+		
+		while(in.hasNext())
+		{	
+			Person temp = new Providers();
+			String name = in.next();
+			String ID = in.next();
+			String address = in.next();
+			String city = in.next();
+			String state = in.next();
+			String zip = in.next();
+			
+			temp.SetName(name);
+			Integer Integerid = new Integer(ID);
+			temp.SetID(Integerid);
+			temp.SetAddress(address);
+			temp.SetCity(city);
+			temp.SetState(state);
+			Integer Integerzip = new Integer(zip);
+			temp.SetZip(Integerzip);
+			
+			
+			directory.put(temp.GetName(), temp);
+			directory1.put(temp.GetID(), temp);
+			in.nextLine();
+		}
+		in.close();
+	}
+
 	
 	//adds new provider to both maps
 	public int addPro(Person temp)
@@ -106,7 +148,7 @@ public class ProviderDB
 		PrintWriter writer = null;
 		
 		try {
-			writer = new PrintWriter("Directory Email.txt");
+			writer = new PrintWriter("ProviderDB Email.txt");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -141,28 +183,31 @@ public class ProviderDB
 		writer.close();
 	}
 	
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
-		Person temp = new Providers();
-		ProviderDB directory = new ProviderDB();
+		/*Person temp = new Providers("Jo", 1, "Address", "City", "State", 321);
+		Person temp1 = new Providers("Roo", 12, "Address", "City", "State", 123);
+		Person temp2 = new Providers("Key", 32, "Address", "City", "State", 234);
+		Person temp3 = new Providers("Tay", 4, "Address", "City", "State", 567);
 		
-		temp.setname("Jo");
-		temp.SetIDnum();
-		temp.setlocation("Address", "City", "State", 123);
-		directory.addPro(temp);
+		ProviderDB directory;
+		try {
+			directory = new ProviderDB("ProviderDB.txt");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return;
+		}
 		
-		Person temp1 = null;
+		directory.displayAllByName();
 		
-		temp1 = directory.searchByNumAndCopy(temp.IDGetter(), temp1);
+	/*	directory.addPro(temp);
+		directory.addPro(temp1);
+		directory.addPro(temp2);
+		directory.addPro(temp3);
 		
-		if(temp1 != null)
-			temp1.DisplayInformation();
-		
-		directory.saveOutForEmail();
 		directory.saveOutForSystem();
-		
-		
-		
-	}
+			
+	}*/
 	
 }

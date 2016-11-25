@@ -11,6 +11,10 @@ public Providers(Person person) {
 		// TODO Auto-generated constructor stub
 		super(person);
 	}
+	public Providers(String temp, int temp1, String temp2, String temp3, String temp4, int temp5) 
+	{
+		super(temp,temp1, temp2, temp3, temp4, temp5);
+	}
 	// set the name of the provider
 	public void SetName(){
 		System.out.print("Provider Name: ");

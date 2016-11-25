@@ -1,3 +1,16 @@
-Name: Jo
-Address:Address
-City State, 123
+Service: HI
+Fee: 200.0
+Service Code: 1
+
+Service: PHY
+Fee: 300.0
+Service Code: 2
+
+Service: Poo
+Fee: 300.0
+Service Code: 5
+
+Service: bleh
+Fee: 200.0
+Service Code: 7
+

@@ -12,7 +12,7 @@ public class Service {
 		fee = -9.99f;
 		serviceName = "Default";
 	}
-	public Service(int passedServiceCode, float passedFee, String passedServiceName)
+	public Service(String passedServiceName, float passedFee, int passedServiceCode)
 	{
 		this.serviceCode = passedServiceCode;
 		this.fee = passedFee;
@@ -52,7 +52,7 @@ public class Service {
 
 	public void display()
 	{
-		System.out.println("Service name: " + serviceName + "\nFee: " + fee + "\nService Code: " + serviceCode);
+		System.out.println("Service name: " + serviceName + "\nFee: " + fee + "\nService Code: " + serviceCode + '\n');
 	}
 	
 	public void saveOutForEmail(PrintWriter out)

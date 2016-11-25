@@ -68,7 +68,7 @@ public class MemberDB {
 		} catch (Exception e) {
 			return false;
 		}
-			
+
 		return true;
 	}
 	public Boolean writeToFile(String filenamePath) throws IOException

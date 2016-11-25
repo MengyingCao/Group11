@@ -109,7 +109,7 @@ protected static Scanner input = null;
 	
 	public void saveOutForSystem(PrintWriter out)
 	{
-		out.write(name +';' + IDnum +';' + Address + ';' + City +';' + State + ';' + Zip);
+		out.write(name +';' + IDnum +';' + Address + ';' + City +';' + State + ';' + Zip + ';');
 	}
 	
 	public String toString()
