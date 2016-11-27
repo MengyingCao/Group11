@@ -2,13 +2,16 @@ import java.util.Scanner;
 import java.util.Random;
 public class Member extends Person{
 protected static Scanner input = null;
+private Boolean suspendedMember;
 
 	public Member(){
 		super();
+		SetSuspendedStatus(false);
 	}
 	
-	public Member(String name, Integer id, String addr, String city, String state, Integer zip){
+	public Member(String name, Integer id, String addr, String city, String state, Integer zip, Boolean suspended){
 		super(name,id,addr,city,state,zip);
+		SetSuspendedStatus(suspended);
 	}
 	
 	public void SetName(){
@@ -25,6 +28,10 @@ protected static Scanner input = null;
 	public void SetIDnum(){
 		super.setidnum(RandomID());
 		return;
+	}
+	
+	public String toString(){
+		return super.toString() + suspendedMember.toString() + ";";
 	}
 // This sets the Member location; prompts the user for 
 // details about the member's Address, city, State and zip
@@ -59,6 +66,7 @@ protected static Scanner input = null;
 		System.out.println("Address:"); 
 		System.out.println(GetAddress());
 		System.out.println(GetCity() + ", " + GetState() + " " + GetZip());
+		System.out.println("Suspended:" + GetSuspendedStatus());
 		return;
 	}
 // RetrievePerson Checks the ID for matching members
@@ -90,6 +98,10 @@ protected static Scanner input = null;
 	public String GetState(){
 		return super.StateGetter();
 	}
+	
+	public Boolean GetSuspendedStatus(){
+		return this.suspendedMember;
+	}
 //-----------END OF GETTERS----------------\\
 	
 	public void SetAddress(String address){
@@ -119,6 +131,10 @@ protected static Scanner input = null;
 	public void SetZip(Integer Zippos){
 		super.setzip(Zippos);
 		return;
+	}
+	
+	public void SetSuspendedStatus(Boolean suspended){
+		this.suspendedMember = suspended;
 	}
 	
 // Used just for testing purposes	
