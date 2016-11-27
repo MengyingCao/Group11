@@ -223,7 +223,7 @@ public class MemberDB {
 //		retr = myDB.retrieveMember(999999999);
 //		System.out.println("\n\n" + retr.toString());
 		//for(Map.Entry<Integer, Member> entry : myDB.memberMap.entrySet())
-		     //System.out.println("Key: " + entry.getKey() + "\nValue: " + entry.getValue() + entry.getValue().GetSuspendedStatus() + ";");
+		     //System.out.println("Key: " + entry.getKey() + "\nValue: " + entry.getValue().toString());
 		//System.out.println(Arrays.toString(myDB.stackMembers().toArray()));
 		
 		// validation testing
