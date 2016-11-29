@@ -43,7 +43,8 @@ public class MemberDB {
 	{
 		try {
 			File file = new File(filenamePath);
-			Scanner in = new Scanner(file).useDelimiter(";");
+			Scanner in = new Scanner(file);
+			in.useDelimiter(";");
 			while(in.hasNext())
 			{
 				String name = in.next();
