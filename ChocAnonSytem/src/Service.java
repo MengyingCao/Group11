@@ -21,9 +21,9 @@ public class Service {
 	
 	public Service(Service copyTo) 
 	{
-		copyTo.serviceName = this.serviceName;
-		copyTo.serviceCode = this.serviceCode;
-		copyTo.fee = this.fee;
+		this.serviceName = copyTo.serviceName;
+		this.serviceCode = copyTo.serviceCode;
+		this.fee = copyTo.fee;
 		
 	}
 	public int getServiceCode() {
