@@ -35,7 +35,6 @@ public class ProviderDirectory
 		try {
 			in = new Scanner(inFile);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			throw e;//.printStackTrace();
 		}
 		
@@ -104,7 +103,14 @@ public class ProviderDirectory
 		
 		return 0;
 	}
-	
+	// search by number, 1 if number exists 0 otherwise
+	public int searchByNum(int key)
+	{
+		if(directory.containsKey(key))
+			return 1;
+		
+		return 0;
+	}	
 	//search and display by name
 	public int searchByNameAndDisplay(String key)
 	{
@@ -138,6 +144,20 @@ public class ProviderDirectory
 		
 		return temp;
 		
+	}
+	
+	public Service searchByNumAndCopy(int key)
+	{
+		Service temp = null;
+			if(directory.containsKey(key))
+				temp = new Service(directory.get(key));
+
+		
+			if(temp == null)
+				return null;
+		
+		return temp;
+
 	}
 	
 	//displays all services alphabetically
@@ -189,21 +209,24 @@ public class ProviderDirectory
 		writer.close();
 	}
 	
-/*	public static void main(String[] args)
+	public static void main(String[] args)
 	{
 		ProviderDirectory temp = null;
 		try {
 			temp = new ProviderDirectory("Provider Directory.txt");
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e);
 			return;
 		}
 		
 		temp.displayAllByName();
 		
+		Service tmp2 = null;
+		tmp2 = temp.searchByNumAndCopy(7);
+		tmp2.display();
 		
 		
+	/*	
 		Service temp1 = new Service("Poo", 300, 5);
 		Service toAdd = new Service("bleh", 200, 7);
 		
@@ -212,6 +235,6 @@ public class ProviderDirectory
 		temp.saveOutForSystem();
 		temp.saveOutForEmail();
 		
-		
-	}*/
+	*/
+	}
 }
