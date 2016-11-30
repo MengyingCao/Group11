@@ -209,7 +209,7 @@ public class ProviderDirectory
 		writer.close();
 	}
 	
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		ProviderDirectory temp = null;
 		try {
@@ -234,7 +234,7 @@ public class ProviderDirectory
 		temp.addService(temp1);
 		temp.saveOutForSystem();
 		temp.saveOutForEmail();
-		
+	}	
 	*/
-	}
+	
 }
