@@ -16,7 +16,7 @@ public class MemberDB {
 	}
 	private Map<Integer, Member> memberMap;
 	
-	private Boolean printMap()
+	public Boolean printMap()
 	{
 		if(this.memberMap != null)
 		{
