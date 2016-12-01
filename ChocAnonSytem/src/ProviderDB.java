@@ -62,9 +62,6 @@ public class ProviderDB
 			Providers toPush = new Providers(entry.getValue());
 			myStack.push(toPush);
 		}
-		
-
-		System.out.println(myStack);
 		return myStack;
 	}
 

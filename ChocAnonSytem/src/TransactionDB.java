@@ -65,6 +65,7 @@ public class TransactionDB {
 		providerTransactions = providerTransactionDB.get(providerID);
 		providerTransactionsCopy = null;
 		
+		
 		/* make a copy of those transactions to return */
 		if (providerTransactions != null)
 			providerTransactionsCopy = new LinkedList<Transaction>(providerTransactions);
