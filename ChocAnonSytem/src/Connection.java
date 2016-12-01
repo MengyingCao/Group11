@@ -52,9 +52,13 @@ public class Connection extends Thread{
                 	context.jTextArea1.append(temps+"\n");
                     tempc = temps.charAt(0);
                 }
-                addService(temps, in, out);
+                try {
+		    addService(temps, in, out);
+		} catch (Exception e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
                 socket.close();
-                
                 
             }catch (IOException e){
                     System.out.println(e);
@@ -75,40 +79,52 @@ public class Connection extends Thread{
 			while(repeat){
 				out.println("Please choose options:");
 				out.println("1. Search Service by Name");
-				out.println("2. Type in Service through Code\n");
+				out.println("2. Type in Service through Code");
+				out.println("~");
 				switch(Integer.parseInt(in.readLine())){
-				case 1: out.println("\n\n\nPlease type in the Name");
+				case 1: out.println("Please type in the Name:");
+						out.println("~");
 						temp = in.readLine();
 						context.jTextArea1.append(temp+"\n");
 						tempser = context.providerDIR.searchByNameAndCopy(temp, tempser);
+						if(tempser == null){
+							out.println("This service not exist.");
+						}else{
+							out.println("The service code is: "+tempser.getServiceCode());
+						}
 						context.jTextArea1.append(tempser.getServiceName());
-						out.println("The service code is: "+tempser.getServiceCode());
+						
 						break;
-				case 2: out.println("\n\n\nPlease type in the Number");
+				case 2: out.println("Please type in the Number:");
+						out.println("~");
 						num = Integer.parseInt(in.readLine());
 						context.jTextArea1.append(num+"\n");
-						tempser = context.providerDIR.searchByNumAndCopy(num, tempser);
+						tempser = context.providerDIR.searchByNumAndCopy(num);
 						context.jTextArea1.append(tempser.getServiceName());
 						out.println("The service name is: "+tempser.getServiceName());
 						out.println("Sure to record this service? 1-Yes 2-No");
+						out.println("~");
 						num = Integer.parseInt(in.readLine());
 						if(num==1){
 							repeat = false;
 						}
 						break;
-				default:out.println("\n\n\nWrong input!");
+				default:out.println("Wrong input!");
+						out.println("~");
 						break;
 				}
 			}
 			temptran.setServiceCode(tempser.getServiceCode());
 			out.println("Please give the comments:");
 			context.jTextArea1.append("Sent to Provider "+providerNum+"(client "+clientNum+"): Please give the comments:\n");
+			out.println("~");
 			temptran.setComment(in.readLine());
 			temptran.setMemberNumber(memberNum);
 			temptran.setProviderNumber(providerNum);
 			temptran.setDateTimeRecieved(LocalDateTime.now());
 			if(context.transDB.addTransaction(temptran)){
 				out.println("Transaction add succeed.Thanks!\nDisconnect");
+				out.println("!");
 				context.jTextArea1.append("Provider "+providerNum+"(client "+clientNum+"): Add a new transaction for Member "+memberNum+"\n");
 			}
 		} catch (IOException e) {
