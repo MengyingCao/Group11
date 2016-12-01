@@ -53,7 +53,8 @@ public class MemberDB {
 				String city = in.next();
 				String state = in.next();
 				String zip = in.next();
-				Boolean suspended = in.nextBoolean();
+				String suspended = in.nextLine(); // make sure to eat endline
+				Boolean isSuspended = Boolean.parseBoolean(suspended);
 				
 				Member tempMember = new Member();
 				tempMember.SetName(name);
@@ -64,7 +65,7 @@ public class MemberDB {
 				tempMember.SetState(state);
 				Integer Integerzip = new Integer(zip);
 				tempMember.SetZip(Integerzip);
-				tempMember.SetSuspendedStatus(suspended);
+				tempMember.SetSuspendedStatus(isSuspended);
 				addMember(tempMember);
 			}
 			in.close();
@@ -87,18 +88,19 @@ public class MemberDB {
 		
 		for(java.util.Map.Entry<Integer, Member> entry : memberMap.entrySet())
 		{
-			writer.write(entry.getValue().toString());
-//			Essentialy,
-//			writer.write
-//			(
-//			entry.getValue().getMemberName() + ";" +
-//			entry.getValue().getMemberNumber() + ";" +
-//			entry.getValue().getMemberAddress() + ";" +
-//			entry.getValue().getMemberCity() + ";" + 
-//			entry.getValue().getMemberState() + ";" +
-//			entry.getValue().getMemberZip() + ";" + 
-//			"\n"
-//			);
+			writer.write(entry.getValue().toString() + '\n');
+			/*
+			writer.write
+			(
+			entry.getValue().GetName() + ";" +
+			entry.getValue().GetID() + ";" +
+			entry.getValue().GetAddress() + ";" +
+			entry.getValue().GetCity() + ";" + 
+			entry.getValue().GetState() + ";" +
+			entry.getValue().GetZip() + ";" +
+			entry.getValue().GetSuspendedStatus().toString() 
+			+ ";\n"
+			);*/
 		}
 
 		writer.close();
@@ -188,7 +190,7 @@ public class MemberDB {
 			e.printStackTrace();
 		}
 		//myDB.printMap();
-		Member test = new Member("name", new Integer(01234567), "123 fake", "city", "state", new Integer(33333),true);
+		Member test = new Member("name", new Integer(01232667), "123 fake", "city", "state", new Integer(33333),true);
 		
 		/*
 		System.out.println(test);
@@ -201,7 +203,8 @@ public class MemberDB {
 		
 		System.out.println("OG map: ");
 		myDB.printMap();
-		myDB.addMember(test);
+		//myDB.addMember(test);
+		myDB.removeMember(myDB.retrieveMember(777777777));
 		System.out.println("after adding test member to map: ");
 		myDB.printMap();
 		
