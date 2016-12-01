@@ -89,7 +89,12 @@ public class ReportGenerator {
 				 writer.write("Number of consultations this week: " + numTransactions + "\n");
 				 writer.write("Total fee for the week: " + feeAccumulator + "\n");
 			 }
-			}	
+			}
+			else{
+				//provider had no transactions
+				writer.write("Number of consultations this week: 0\n");
+				writer.write("Total fee for the week:  0.0 \n");
+			}
 			if (writer != null)
 				writer.close();
 			
@@ -197,7 +202,11 @@ public class ReportGenerator {
 				 writer.write("Number of consultations this week: " + numTransactions + "\n");
 				 writer.write("Total fee for the week: " + feeAccumulator + "\n");
 			 }
-			}	
+			}
+			else{
+				writer.write("Number of consultations this week: 0\n");
+				writer.write("Total fee for the week:  0.0 \n");
+			}
 		if (writer != null)
 			writer.close();
 		}
@@ -412,7 +421,7 @@ public class ReportGenerator {
 		
 		ReportGenerator rGen = new ReportGenerator();
 		//rGen.generateMemberReports(mDB, pDB, tDB, pDir);
-		//rGen.generateProviderReports(mDB, pDB, tDB, pDir);
+		rGen.generateProviderReports(mDB, pDB, tDB, pDir);
 		//rGen.generateProviderReportsAndEFT(mDB, pDB, tDB, pDir);
 		//rGen.generateSummaryReport(mDB, pDB, tDB, pDir);
 		
