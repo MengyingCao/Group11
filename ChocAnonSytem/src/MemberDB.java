@@ -29,13 +29,12 @@ public class MemberDB {
 	}
 
 	@SuppressWarnings("unused")
-	private Stack<Member> stackMembers()
+	public Stack<Member> stackMembers()// commit this shit
 	{
 		Stack<Member> myStack = new Stack<Member>(); 
 		for(Map.Entry<Integer, Member> entry : memberMap.entrySet())
 		  		myStack.push(entry.getValue());
 		
-		System.out.println(myStack);
 		return myStack;
 	}
 	

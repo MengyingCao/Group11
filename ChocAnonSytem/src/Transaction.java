@@ -1,4 +1,5 @@
 import java.time.*;
+import java.time.format.*;
 
 public class Transaction {
 	
@@ -45,6 +46,17 @@ public class Transaction {
 	
 	public void setTransactionDate(LocalDate date) {
 		this.transactionDate = LocalDate.from(date);
+	}
+	
+	public Boolean setTransactionDate(String date){
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("MM-dd-yyyy");	
+		try{
+		this.transactionDate = LocalDate.parse(date, format);
+		}
+		catch (DateTimeParseException e){
+			return false;
+		}
+		return true;
 	}
 	
 	public LocalDateTime getDateTimeRecieved() {

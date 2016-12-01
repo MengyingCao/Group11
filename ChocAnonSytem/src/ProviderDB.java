@@ -55,11 +55,14 @@ public class ProviderDB
 	}
 
 	//used by reportGenerator
-	private Stack<Provider> stackProviders()
+	public Stack<Providers> stackProviders()
 	{
-		Stack<Provider> myStack = new Stack<Provider>();
-		for(Map.Entry<Integer, Provider> entry : directory1.entrySet())
-			myStack.push(entry.getValue());
+		Stack<Providers> myStack = new Stack<Providers>();
+		for(Map.Entry<Integer, Person> entry : directory1.entrySet()){
+			Providers toPush = new Providers(entry.getValue());
+			myStack.push(toPush);
+		}
+		
 
 		System.out.println(myStack);
 		return myStack;
