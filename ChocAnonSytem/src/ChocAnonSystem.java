@@ -1,4 +1,4 @@
-import java.io.FileNotFoundException;
+ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -16,8 +16,8 @@ public class ChocAnonSystem extends javax.swing.JFrame {
     boolean startsystem;
     private static String menu = "1 - Display Provider\n"
                                + "2 - Display Member\n"
-                               + "3 - Display Servixe\n"
-                               + "4 - Get Report\n"
+                               + "3 - Display Service\n"
+                               + "4 - Display Report\n"
                                + "5 - Interactive Mode\n"
                                + "Please choose the operation you want to do by typing in number:\n";
     
@@ -199,6 +199,8 @@ public class ChocAnonSystem extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) { 
     	startsystem = true;
+    	ReportGenerator rGen = new ReportGenerator();
+		rGen.generateSummaryReport(memberDB, providerDB, transDB, providerDIR);
         athread = new ServerSystem(window);
         athread.start();
         jTextArea2.append(menu);
@@ -225,7 +227,8 @@ public class ChocAnonSystem extends javax.swing.JFrame {
         	case 4: transDB.displayTransactions();
         	jTextArea2.append("Data see the backstage.\n");
         	break;
-        	case 5: interactiveMode();
+        	case 5: jTextArea2.append("Please turn to the backstage.\n");
+        	interactiveMode();
         	break;
         	default: jTextArea2.append("Wrong input.\n");
         	break;
