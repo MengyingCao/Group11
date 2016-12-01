@@ -224,6 +224,7 @@ public class Terminal extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         String string = jTextField3.getText();
+        char ctemp;
         if(!providerlog){
             jTextArea1.append("Please provider log on first\n");
         }else if(!memberlog){
@@ -234,20 +235,14 @@ public class Terminal extends javax.swing.JFrame {
             try {
                 out.println(string);
                 string = input.readLine();
-                if(string.length()!=0){
+                ctemp = string.charAt(0);
+                while(ctemp!='~' && ctemp!='!'){
                 	jTextArea1.append(string+"\n");
+                	string = input.readLine();
+                	ctemp = string.charAt(0);
                 }
-                string = input.readLine();
-                if(string.length()!=0){
-                	jTextArea1.append(string+"\n");
-                }
-                string = input.readLine();
-                if(string.length()!=0){
-                	jTextArea1.append(string+"\n");
-                }
-                string = input.readLine();
-                if(string.length()!=0){
-                	jTextArea1.append(string+"\n");
+                if(ctemp == '!'){
+                	asocket.close();
                 }
             } catch (IOException e) {
                 jTextArea1.append("Can't connect.\n");
