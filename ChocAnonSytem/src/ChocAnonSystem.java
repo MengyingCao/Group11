@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class ChocAnonSystem extends javax.swing.JFrame {
 
@@ -17,6 +18,7 @@ public class ChocAnonSystem extends javax.swing.JFrame {
                                + "2 - Display Member\n"
                                + "3 - Display Servixe\n"
                                + "4 - Get Report\n"
+                               + "5 - Interactive Mode\n"
                                + "Please choose the operation you want to do by typing in number:\n";
     
     public ChocAnonSystem() {
@@ -223,12 +225,94 @@ public class ChocAnonSystem extends javax.swing.JFrame {
         	case 4: transDB.displayTransactions();
         	jTextArea2.append("Data see the backstage.\n");
         	break;
+        	case 5: interactiveMode();
+        	break;
         	default: jTextArea2.append("Wrong input.\n");
         	break;
         	}
         	jTextField1.setText("");
         }
     }                                        
+    
+    private void interactiveMode(){
+    	Scanner in = new Scanner(System.in);
+    	String choice = "-1";
+    	String memberID = null;
+    	String Menu = "Interactive Mode\n1.Add Member\n2.Remove Member\n3.Update Member";
+    	System.out.println(Menu);
+		choice = in.nextLine();
+    	
+    	switch (choice){
+    	case "1":
+    		System.out.println("Please enter the members information");
+    		Member toAdd = new Member();
+    		toAdd.SetName();
+    		System.out.println("Member ID: ");
+    		memberID = in.nextLine();
+    		toAdd.SetID(Integer.parseInt(memberID));
+    		toAdd.SetLocation();
+    		memberDB.addMember(toAdd);
+    		toAdd.DisplayInformation();
+    		System.out.println("Member Added!");
+    		
+    		try {
+				memberDB.writeToFile("members.txt");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    		break;
+    	case "2":
+    		System.out.println("Please enter the members id number: ");
+    		memberID = in.nextLine();
+    		Member toRemove = memberDB.retrieveMember(Integer.parseInt(memberID));
+    		if ( memberDB.removeMember(toRemove) ){
+				System.out.println("Member Removed!");
+				try {
+				memberDB.writeToFile("members.txt");
+			    } catch (IOException e) {
+				e.printStackTrace();
+				}
+    		}
+    		else
+    			System.out.println("Member not found. Exiting.");
+    		break;
+    	case "3":
+    		System.out.println("Please enter the id number of the member you wish to update: ");
+    		String tempID = in.nextLine();
+    		int memberID1 = Integer.parseInt(tempID);
+    		String status = "false";
+    		if (memberDB.isValid(memberID1)){
+    			System.out.println("Please enter the members new information: ");
+    			Member newInfo = new Member();
+				newInfo.SetName();
+				newInfo.SetID(memberID1);
+				newInfo.SetLocation();
+				System.out.println("Please enter the members suspended status(true or false): ");
+				status = in.nextLine();
+				newInfo.SetSuspendedStatus(Boolean.parseBoolean(status));
+				System.out.println("Old member information: ");
+				Member oldMember = memberDB.retrieveMember(memberID1);
+				oldMember.DisplayInformation();
+				memberDB.updateMember(oldMember, newInfo);
+				Member found = memberDB.retrieveMember(memberID1);
+				found.DisplayInformation();
+				System.out.println("Member Updated!");
+				
+				try {
+					memberDB.writeToFile("members.txt");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+    		}
+    		else
+    			System.out.println("Member number is invalid. Exiting.");
+    		break;
+    	default:
+    		System.out.println("Wrong input!");
+    		break;
+    	}
+    	
+    }
 
     /**
      * @param args the command line arguments
