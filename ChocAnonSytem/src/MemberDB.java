@@ -192,6 +192,7 @@ public class MemberDB {
 		//myDB.printMap();
 		Member test = new Member("name", new Integer(01232667), "123 fake", "city", "state", new Integer(33333),true);
 		
+		
 		/*
 		System.out.println(test);
 		String temp = myDB.convertMemberToStringThruMember(test);
