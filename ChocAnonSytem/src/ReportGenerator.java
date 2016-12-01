@@ -19,14 +19,114 @@ public class ReportGenerator {
 		this.pDir = pDir;
 	}
 
-	
-	public void generateProviderReports(MemberDB members, ProviderDB providers){
-		//get a list of providers
-		//Stack<Provider> pStack = providers;
-				
-				//need to implement provider stack
+	//writes to disk the consultation, EFT, and summary reports for each provider
+	public void generateProviderReports(MemberDB m, ProviderDB p, TransactionDB t, ProviderDirectory pDir){
+        Stack<Provider> pStack = null;
+        LinkedList<Transaction> tList = null;
+        LocalDate today = LocalDate.now();
+        PrintWriter writer = null;
+        PrintWriter writerSumm = null;
+        String filename = null;
+        String filenameEFT = null;
+        String filenameSumm = null;
+        pStack = p.stackProviders();
+        int totalConsults;
+        float totalFees;
+        int totalAllProvs = 0;
+        int totalAllConsults = 0;
+        int totalAllFees = 0.0;
+
+        if (pStack == null)
+            return;
+
+        filenameSumm = createSummName();
+        try {
+            writerSumm = new PrintWriter(filenameSumm);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        while (!pStack.isEmpty()){
+            totalConsults = 0;
+            totalFees = 0.0;
+
+            Provider currentProvider = pStack.pop();
+            today = LocalDate.now();
+            //create a filename for this member report
+            filename = createProvFilename(currentProvider.GetID());
+            filenameEFT = createEFTFilename(currentProvider.GetID());
+
+            try {
+                writer = new PrintWriter(filename);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            writeProviderToFile(writer, currentProvider);
+
+            //retrieve a list of transaction for that member
+            tList = t.retrieveProviderTransactions(currentProvider.GetID());
+
+            //for each transaction
+            for (int i = 0; i < tList.size(); ++i)
+            {
+                Transaction trans = tList.get(i);
+                if (trans.isWithinPastWeek()){
+                    int memberNumber = trans.getMemberNumber();
+                    int serviceCode = trans.getServiceCode();
+
+                    //get member name
+                    Person memberPerson = null;
+                    memberPerson = p.searchByNumAndCopy(memberNumber, memberPerson);
+                    String memberName = memberPerson.GetName();
+
+                    //get service name and fee
+                    String serviceName = null;
+                    Service foundService;
+                    foundService = pDir.searchByNumAndCopy(trans.getServiceCode());
+                    serviceName = foundService.getServiceName();
+                    float serviceFee = foundService.getFee();
+
+                    //get service dates
+                    String transDate = trans.getTransactionDate().toString();
+                    String dateReceived = trans.getDateTimeRecieved().toString();
+
+                    writer.write("\nService " + (i+1) + "\n");
+                    writer.write(transDate + "\n");
+                    writer.write("Date entered:" + dateReceived + "\n");
+                    writer.write("Member name: " + memberName + "\n");
+                    writer.write("Member number: " + memberNumber + "\n");
+                    writer.write("Code: " + serviceCode + "\n");
+                    wrtier.write("Fee: " + serviceFee + "\n");
+
+                    ++totalConsults;
+                    totalFees+=serviceFee;
+                }
+            }
+            writer.write("Total consultations: " + totalConsults + "\n");
+            writer.write("Total fees: " + totalFees);
+
+            try {
+                writer = new PrintWriter(filenameEFT);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            writer.write(currentProvider.GetName()+";"+currentProvider.GetID().toString()+";"+totalFees);
+
+            writerSumm.write(currentProvider.GetName()+";"+currentProvider.GetID().toString()
+                            +";"+totalConsults+";"+totalFees+"\n");
+            ++totalAllProvs;
+            ++totalAllConsults;
+            totalAllFees+=totalFees;
+
+            writerSumm.write("\nTotal providers: "+totalAllProvs
+                            +"\nTotal consultations: "+totalAllConsults
+                            +"\nTotal fees: "+totalAllFees);
+        }
+        writer.close();
 	}
-	
+
+    //writes to disk the service reports for each member
 	public void generateMemberReports(MemberDB m, ProviderDB p, TransactionDB t, ProviderDirectory pDir){
 		Stack<Member> mStack = null;
 		LinkedList<Transaction> tList = null;
@@ -42,7 +142,7 @@ public class ReportGenerator {
 			Member currentMember = mStack.pop();
 			today = LocalDate.now();
 			//create a filename for this member report
-			filename = createFilename(currentMember.GetID());
+			filename = createMembFilename(currentMember.GetID());
 		
 			try {
 				writer = new PrintWriter(filename);
@@ -75,33 +175,58 @@ public class ReportGenerator {
 					 
 					 //get service date
 					 String serviceDate = trans.getTransactionDate().toString();
-					 
-					 writer.write(providerNumber + "\n");
+
+                     writer.write("Service " + (i+1) + "\n");
+                     writer.write(serviceDate + "\n");
+					 //writer.write(providerNumber + "\n");
 					 writer.write(providerName + "\n");
-					 writer.write(trans.getServiceCode() + "\n");
+					 //writer.write(trans.getServiceCode() + "\n");
 					 writer.write(serviceName + "\n");
-					 writer.write(serviceDate + "\n");
 			 }
 			}	
 		}
 		writer.close();
 	}
 	
-	private String createFilename(int id){
+	private String createMembFilename(int id){
 		String filename = "";
-		filename.concat(id + "_" + LocalDate.now().toString() + ".txt");
+		filename.concat("M_" + id + "_" + LocalDate.now().toString() + ".txt");
 		return filename;
 	}
-	
+
+    private String createProvFilename(int id){
+        String filename = "";
+        filename.concat("P_" + id + "_" + LocalDate.now().toString() + ".txt");
+        return filename;
+    }
+
+    private String createEFTFilename(int id){
+        String filename = "";
+        filename.concat("EFT_" + id + "_" + LocalDate.now().toString() + ".txt");
+        return filename;
+    }
+
+    private String createSummName() {
+        String filename = "";
+        filename.concat("SUMM_"+LocalDate.now().toString()+".txt");
+        return filename;
+    }
+
+    private void writeProviderToFile(PrintWriter w, Provider p){
+        w.write("Provider Information:\n");
+        w.write(p.GetName());
+        w.write("\nID: " + p.GetID().toString());
+        w.write("\nAddress: " + p.GetAddress());
+    }
+
 	private void writeMemberToFile(PrintWriter w, Member m){
-		w.write("Member Information\n");
-		w.write("Member Name: "+ m.GetName());
-		w.write("\nMember ID: " + m.GetID().toString());
-		w.write("\nMember Address: " + m.GetAddress());
-		w.write("\nMember Status: " + m.GetSuspendedStatus().toString());
+		w.write("Member Information:\n");
+		w.write(m.GetName());
+		w.write("\nID: " + m.GetID().toString());
+		w.write("\nAddress: " + m.GetAddress());
+		w.write("\nStatus: " + m.GetSuspendedStatus().toString());
 	}
-	
-	public static void main(String[] args) {
-	}
+
+	public static void main(String[] args) {}
 
 }

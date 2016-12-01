@@ -54,7 +54,17 @@ public class ProviderDB
 		in.close();
 	}
 
-	
+	//used by reportGenerator
+	private Stack<Provider> stackProviders()
+	{
+		Stack<Provider> myStack = new Stack<Provider>();
+		for(Map.Entry<Integer, Provider> entry : directory1.entrySet())
+			myStack.push(entry.getValue());
+
+		System.out.println(myStack);
+		return myStack;
+	}
+
 	//adds new provider to both maps
 	public int addPro(Person temp)
 	{
