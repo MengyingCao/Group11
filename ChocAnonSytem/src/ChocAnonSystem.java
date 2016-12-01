@@ -19,6 +19,7 @@ public class ChocAnonSystem extends javax.swing.JFrame {
                                + "3 - Display Service\n"
                                + "4 - Display Report\n"
                                + "5 - Interactive Mode\n"
+                               + "6 - Report Generator\n"
                                + "Please choose the operation you want to do by typing in number:\n";
     
     public ChocAnonSystem() {
@@ -199,8 +200,6 @@ public class ChocAnonSystem extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) { 
     	startsystem = true;
-    	ReportGenerator rGen = new ReportGenerator();
-		rGen.generateSummaryReport(memberDB, providerDB, transDB, providerDIR);
         athread = new ServerSystem(window);
         athread.start();
         jTextArea2.append(menu);
@@ -229,14 +228,44 @@ public class ChocAnonSystem extends javax.swing.JFrame {
         	break;
         	case 5: jTextArea2.append("Please turn to the backstage.\n");
         	interactiveMode();
-        	break;
+        	break; 
+        	case 6:
+        	jTextArea2.append("Please turn to the backstage.\n");
+        	reportGeneratorMode();
         	default: jTextArea2.append("Wrong input.\n");
         	break;
         	}
         	jTextField1.setText("");
         }
-    }                                        
-    
+    }
+    private void reportGeneratorMode(){
+    	Scanner in = new Scanner(System.in);
+    	ReportGenerator rGen = new ReportGenerator();
+    	String choice = "-1";
+    	String Menu = "Report Generator Mode\n1.Generate member reports\n2.Generate provider reports\n3.Generate summary report";
+    	System.out.println(Menu);
+    	choice = in.nextLine();
+    	switch (choice){
+    	case "1":
+    		rGen.generateMemberReports(memberDB, providerDB, transDB, providerDIR);
+    		System.out.println("Member Reports Generated!");
+    		break;
+    	case "2":
+    		rGen.generateProviderReports(memberDB, providerDB, transDB, providerDIR);
+    		System.out.println("Provider Reports Generated!");
+    		break;
+    	case "3":
+    		rGen.generateSummaryReport(memberDB, providerDB, transDB, providerDIR);
+    		System.out.println("Summart Report Generated!");
+    		break;
+		default:
+    		System.out.println("Wrong input! Exiting.");
+    		
+    			
+    	}
+    	
+    	
+    }
     private void interactiveMode(){
     	Scanner in = new Scanner(System.in);
     	String choice = "-1";
@@ -311,7 +340,7 @@ public class ChocAnonSystem extends javax.swing.JFrame {
     			System.out.println("Member number is invalid. Exiting.");
     		break;
     	default:
-    		System.out.println("Wrong input!");
+    		System.out.println("Wrong input! Exiting.");
     		break;
     	}
     	
