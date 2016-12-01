@@ -158,10 +158,10 @@ public class ReportGenerator {
 			tList = t.retrieveMemberTransactions(currentMember.GetID());
 			
 			if (tList != null){
+				 writer.write("\nRecent Transactions(within the past week): \n");
 				//for each transaction
 				 for (int i = 0; i < tList.size(); ++i)
 				 {
-					 writer.write("Recent Transactions(within the past week): \n");
 					 Transaction trans = tList.get(i);
 					 if (trans.isWithinPastWeek()){
 						 int providerNumber = trans.getProviderNumber();
@@ -195,7 +195,7 @@ public class ReportGenerator {
 	}
 	
 	private String createMembFilename(int id){
-		return "memberReports/" + "M_" + id + "_" + LocalDate.now().toString() + ".txt";
+		return "MemberReports/" + "M_" + id + "_" + LocalDate.now().toString() + ".txt";
 	}
 
     private String createProvFilename(int id){

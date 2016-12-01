@@ -28,8 +28,7 @@ public class MemberDB {
 		return false;
 	}
 
-	@SuppressWarnings("unused")
-	public Stack<Member> stackMembers()// commit this shit
+	public Stack<Member> stackMembers()// commit this kindly
 	{
 		Stack<Member> myStack = new Stack<Member>(); 
 		for(Map.Entry<Integer, Member> entry : memberMap.entrySet())
