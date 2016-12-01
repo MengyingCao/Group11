@@ -41,7 +41,6 @@ public class ReportGenerator {
 				e.printStackTrace();
 			}
 			writeProviderToFile(writer, currentProvider);
-			currentProvider.DisplayInformation();
 			
 			tList = t.retrieveProviderTransactions(currentProvider.GetID());	
 			
@@ -151,7 +150,6 @@ public class ReportGenerator {
 				e.printStackTrace();
 			}
 			writeProviderToFile(writer, currentProvider);
-			currentProvider.DisplayInformation();
 			
 			tList = t.retrieveProviderTransactions(currentProvider.GetID());	
 			
@@ -416,7 +414,7 @@ public class ReportGenerator {
 		//rGen.generateMemberReports(mDB, pDB, tDB, pDir);
 		//rGen.generateProviderReports(mDB, pDB, tDB, pDir);
 		//rGen.generateProviderReportsAndEFT(mDB, pDB, tDB, pDir);
-		rGen.generateSummaryReport(mDB, pDB, tDB, pDir);
+		//rGen.generateSummaryReport(mDB, pDB, tDB, pDir);
 		
 	}
 }
