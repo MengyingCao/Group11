@@ -13,13 +13,17 @@ public class ChocAnonSystem extends javax.swing.JFrame {
     public MemberDB memberDB;
     public TransactionDB transDB;
     public ProviderDirectory providerDIR;
+    public ReportGeneratorAuto autoReport;
+    public ReportGenerator rGen;
     boolean startsystem;
     private static String menu = "1 - Display Provider\n"
                                + "2 - Display Member\n"
                                + "3 - Display Service\n"
-                               + "4 - Display Report\n"
-                               + "5 - Interactive Mode\n"
-                               + "6 - Report Generator\n"
+                               + "4 - Display all Transaction\n"
+                               + "5 - Generate a Member Report\n"
+                               + "6 - Generate a Provider Report\n"
+                               + "7 - Generate a Summary Report\n"
+                               + "8 - Interactive Mode\n"
                                + "Please choose the operation you want to do by typing in number:\n";
     
     public ChocAnonSystem() {
@@ -36,6 +40,7 @@ public class ChocAnonSystem extends javax.swing.JFrame {
 			providerDB = new ProviderDB("ProviderDB.txt");
 			transDB = new TransactionDB("transactions.txt");
 			providerDIR = new ProviderDirectory("Provider Directory.txt");
+			rGen = new ReportGenerator();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -202,6 +207,8 @@ public class ChocAnonSystem extends javax.swing.JFrame {
     	startsystem = true;
         athread = new ServerSystem(window);
         athread.start();
+        autoReport = new ReportGeneratorAuto(window);
+		autoReport.start();
         jTextArea2.append(menu);
     }                                        
 
@@ -215,57 +222,36 @@ public class ChocAnonSystem extends javax.swing.JFrame {
         	int num = Integer.parseInt(string);
         	switch(num){
         	case 1: providerDB.displayAllByName();
-        	jTextArea2.append("Data see the backstage.\n");
-        	break;
+        			jTextArea2.append("Data see the backstage.\n");
+        			break;
         	case 2: memberDB.printMap();
-        	jTextArea2.append("Data see the backstage.\n");
-        	break;
+        			jTextArea2.append("Data see the backstage.\n");
+        			break;
         	case 3: providerDIR.displayAllByName();
-        	jTextArea2.append("Data see the backstage.\n");
-        	break;
+        			jTextArea2.append("Data see the backstage.\n");
+        			break;
         	case 4: transDB.displayTransactions();
-        	jTextArea2.append("Data see the backstage.\n");
-        	break;
-        	case 5: jTextArea2.append("Please turn to the backstage.\n");
-        	interactiveMode();
-        	break; 
-        	case 6:
-        	jTextArea2.append("Please turn to the backstage.\n");
-        	reportGeneratorMode();
+        			jTextArea2.append("Data see the backstage.\n");
+        			break;
+        	case 5: rGen.generateMemberReports(memberDB, providerDB, transDB, providerDIR);
+        			jTextArea2.append("Report Generated succeed.\n");
+        			break;
+        	case 6: rGen.generateProviderReports(memberDB, providerDB, transDB, providerDIR);
+					jTextArea2.append("Report Generated succeed.\n");
+					break;
+        	case 7: rGen.generateSummaryReport(memberDB, providerDB, transDB, providerDIR);
+					jTextArea2.append("Report Generated succeed.\n");
+					break;
+        	case 8: jTextArea2.append("Please turn to the backstage.\n");
+        			interactiveMode();
+        			break;
         	default: jTextArea2.append("Wrong input.\n");
         	break;
         	}
         	jTextField1.setText("");
         }
-    }
-    private void reportGeneratorMode(){
-    	Scanner in = new Scanner(System.in);
-    	ReportGenerator rGen = new ReportGenerator();
-    	String choice = "-1";
-    	String Menu = "Report Generator Mode\n1.Generate member reports\n2.Generate provider reports\n3.Generate summary report";
-    	System.out.println(Menu);
-    	choice = in.nextLine();
-    	switch (choice){
-    	case "1":
-    		rGen.generateMemberReports(memberDB, providerDB, transDB, providerDIR);
-    		System.out.println("Member Reports Generated!");
-    		break;
-    	case "2":
-    		rGen.generateProviderReports(memberDB, providerDB, transDB, providerDIR);
-    		System.out.println("Provider Reports Generated!");
-    		break;
-    	case "3":
-    		rGen.generateSummaryReport(memberDB, providerDB, transDB, providerDIR);
-    		System.out.println("Summart Report Generated!");
-    		break;
-		default:
-    		System.out.println("Wrong input! Exiting.");
-    		
-    			
-    	}
-    	
-    	
-    }
+    }                                        
+    
     private void interactiveMode(){
     	Scanner in = new Scanner(System.in);
     	String choice = "-1";
@@ -340,7 +326,7 @@ public class ChocAnonSystem extends javax.swing.JFrame {
     			System.out.println("Member number is invalid. Exiting.");
     		break;
     	default:
-    		System.out.println("Wrong input! Exiting.");
+    		System.out.println("Wrong input!");
     		break;
     	}
     	
