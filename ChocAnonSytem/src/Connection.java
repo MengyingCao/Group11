@@ -13,9 +13,9 @@ public class Connection extends Thread{
 	public Connection(Socket sk, int cnum, int pnum, ChocAnonSystem cont){
 		socket = sk;
 		clientNum = cnum;
-                providerNum = pnum;
+        providerNum = pnum;
 		context = cont;
-                context.jTextArea1.append("Provider "+providerNum+" (client "+clientNum+" ) is connecting.\n");
+        context.jTextArea1.append("Provider "+providerNum+" (client "+clientNum+" ) is connecting.\n");
 	}
 	
 	public void run(){
@@ -44,7 +44,7 @@ public class Connection extends Thread{
                     	}else{
                     		out.println("T");
                     		out.println("Validated");
-                    		out.println("If you want to add a service record, Please input the date below in the format MM-DD-YYYY");
+                    		out.println("If you want to add a service record, Please input the date below in the format YYYY-MM-DD");
                     		memberNum = num;
                     	}
                 	}
@@ -53,19 +53,20 @@ public class Connection extends Thread{
                     tempc = temps.charAt(0);
                 }
                 try {
-		    addService(temps, in, out);
-		} catch (Exception e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
-		}
+					addService(temps, in, out);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
                 socket.close();
+                
                 
             }catch (IOException e){
                     System.out.println(e);
             }
 	}
 	
-	public void addService(String m, BufferedReader in, PrintWriter out){
+	public void addService(String m, BufferedReader in, PrintWriter out) throws Exception{
 		try {
 			String temp;
 			Service tempser = new Service();
@@ -99,7 +100,7 @@ public class Connection extends Thread{
 						out.println("~");
 						num = Integer.parseInt(in.readLine());
 						context.jTextArea1.append(num+"\n");
-						tempser = context.providerDIR.searchByNumAndCopy(num);
+						tempser = context.providerDIR.searchByNumAndCopy(num, tempser);
 						context.jTextArea1.append(tempser.getServiceName());
 						out.println("The service name is: "+tempser.getServiceName());
 						out.println("Sure to record this service? 1-Yes 2-No");
@@ -126,6 +127,10 @@ public class Connection extends Thread{
 				out.println("Transaction add succeed.Thanks!\nDisconnect");
 				out.println("!");
 				context.jTextArea1.append("Provider "+providerNum+"(client "+clientNum+"): Add a new transaction for Member "+memberNum+"\n");
+			}else{
+				out.println("Transaction add failed!\nDisconnect");
+				context.jTextArea1.append("Provider "+providerNum+"(client "+clientNum+"): Failed to add a new transaction for Member "+memberNum+"\n");
+				out.println("!");
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
